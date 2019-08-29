@@ -20,12 +20,5 @@ jobs:
       - name: Tag release
         if: success()
         run: |
-          VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]') && \
+          VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
           echo "Should tag v$VERSION"
-      - name: Third step
-        run: |
-          echo "This step?"
-      - name: No version change
-        if: main.steps.version_check.status == failure()
-        run: |
-          echo "Version didn't change, do nothing"
