@@ -26,5 +26,4 @@ jobs:
       - name: Tag release
         run: |
           VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
-          echo "Should tag v$VERSION"
-          ./hub --help
+          ./hub release create -m "v$VERSION" $VERSION
