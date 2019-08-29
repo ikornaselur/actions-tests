@@ -13,6 +13,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Run
+      - name: Check if version changed
         run: |
-          ls -l
+          git diff HEAD~§ HEAD -U0 | grep "+version"
+      - name: Tag release
+        if: success()
+        run: |
+          echo "Should tag"
+      - name: Third step
+        run: |
+          echo "This step?"
