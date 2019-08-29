@@ -26,6 +26,6 @@ jobs:
         run: |
           echo "This step?"
       - name: No version change
-        if: job.steps.version_check.status == failure()
+        if: main.steps.version_check.status == failure()
         run: |
           echo "Version didn't change, do nothing"
