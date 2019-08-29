@@ -23,10 +23,16 @@ jobs:
           wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz -O hub.tgz
           tar -xvf hub.tgz
           mv hub-linux-amd64-2.12.3/bin/hub .
+      - name: Generate artifacts
+        run: |
+          mkdir artifacts
+          echo "foo" > artifacts/foo
+          echo "bar" > artifacts/bar
+          echo "bar" > artifacts/baz
       - name: Tag release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: ikornaselur
         run: |
           VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
-          ./hub release create -m "v$VERSION" $VERSION
+          ./hub release create -m "v$VERSION" -a artifacts $VERSION
