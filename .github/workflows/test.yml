@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Check if version changed
+        id: version_check
         run: |
           git diff HEAD~1 HEAD -U0 | grep "+version"
       - name: Tag release
@@ -24,3 +25,7 @@ jobs:
       - name: Third step
         run: |
           echo "This step?"
+      - name: No version change
+        if: job.steps.version_check.status == failure()
+        run: |
+          echo "Version didn't change, do nothing"
