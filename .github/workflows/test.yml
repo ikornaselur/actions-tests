@@ -19,7 +19,8 @@ jobs:
       - name: Tag release
         if: success()
         run: |
-          echo "Should tag"
+          VERSION=$(git diff HEAD~1 HEAD -U0 | grep "+version" | cut -d':' -f2 | tr -d '[:space:]') && \
+          echo "Should tag v$VERSION"
       - name: Third step
         run: |
           echo "This step?"
