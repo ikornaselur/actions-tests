@@ -36,4 +36,4 @@ jobs:
         run: |
           VERSION="v$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep '+version' | cut -d':' -f2 | tr -d '[:space:]')"
           ./hub release create -m "$VERSION" $VERSION
-          for a in artifacts/*; do ./hub release edit -a $a $VERSION; done
+          for a in artifacts/*; do ./hub release edit -a $a -m "$VERSION" $VERSION; done
