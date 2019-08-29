@@ -20,9 +20,11 @@ jobs:
       - name: Install hub
         if: success()
         run: |
-          sudo apt install hub -y
+          wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz -O hub.tgz
+          tar -xvf hub.tgz
+          mv hub-linux-amd64-2.12.3/bin/hub .
       - name: Tag release
         run: |
           VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
           echo "Should tag v$VERSION"
-          hub --help
+          ./hub --help
