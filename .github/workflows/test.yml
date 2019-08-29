@@ -17,8 +17,11 @@ jobs:
         id: version_check
         run: |
           git diff HEAD~1 HEAD -U0 | grep "+version"
-      - name: Tag release
+      - name: Install hub
         if: success()
+        run: |
+          sudo apt install hub -y
+      - name: Tag release
         run: |
           VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
           echo "Should tag v$VERSION"
