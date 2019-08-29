@@ -24,6 +24,9 @@ jobs:
           tar -xvf hub.tgz
           mv hub-linux-amd64-2.12.3/bin/hub .
       - name: Tag release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ikornaselur
         run: |
           VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
           ./hub release create -m "v$VERSION" $VERSION
