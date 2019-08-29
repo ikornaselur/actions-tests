@@ -34,5 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USER: ikornaselur
         run: |
-          VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]')
-          ./hub release create -m "v$VERSION" -a artifacts/* $VERSION
+          VERSION="v$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep '+version' | cut -d':' -f2 | tr -d '[:space:]')"
+          ./hub release create -m "$VERSION" $VERSION
+          for a in artifacts/*; do ./hub release edit -a $a $VERSION
