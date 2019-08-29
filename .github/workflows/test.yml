@@ -19,7 +19,7 @@ jobs:
       - name: Tag release
         if: success()
         run: |
-          VERSION=$(git diff HEAD~1 HEAD -U0 | grep "+version" | cut -d':' -f2 | tr -d '[:space:]') && \
+          VERSION=$(git diff HEAD~1 HEAD -U0 -- meta.yml | grep "+version" | cut -d':' -f2 | tr -d '[:space:]') && \
           echo "Should tag v$VERSION"
       - name: Third step
         run: |

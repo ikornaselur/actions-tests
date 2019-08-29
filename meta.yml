@@ -2,6 +2,6 @@ foo: foo
 baz: quux
 corge: grault
 garply: waldo
-version: 0.1.2
+version: 0.1.3
 fred: plugh
 xyzzy: thud
